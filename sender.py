@@ -30,11 +30,9 @@ def send_bot_message(bot_id, text, image_url=None):
     # Try up to 3 times on transient server errors
     for attempt in range(1, 4):
         response = requests.post(url, json=payload, timeout=15)
-        print()
         if response.status_code == 202:
-            print("✅ Sent via bot", bot_id)
+            print("✅ Sent via bot -", bot_id)
             return True
-        print()
         # Retry on 5xx
         if 500 <= response.status_code < 600 and attempt < 3:
             time.sleep(1.5 * attempt)
